@@ -2,17 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
+import { environment } from '../../environments/environment'; // Importe o ambiente
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacaoService {
-  private apiUrl = 'http://localhost:3000/api/notificar';
+  private apiUrl = `${environment.apiUrl}/api/notificar`; // Use a variável de ambiente
   private socket: Socket;
   private statusUpdateSubject = new Subject<{ mensagemId: string, status: string }>();
 
   constructor(private http: HttpClient) {
-    this.socket = io('http://localhost:3000'); // Conecte ao seu servidor Socket.IO
+    this.socket = io(environment.apiUrl); // Use a variável de ambiente
     this.socket.on('statusUpdate', (data: { mensagemId: string, status: string }) => {
       this.statusUpdateSubject.next(data);
     });
