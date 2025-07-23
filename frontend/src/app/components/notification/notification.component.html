@@ -1,0 +1,14 @@
+<div class="notificacao-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Mensagem</mat-label>
+    <input matInput [(ngModel)]="conteudoMensagem">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="enviar()">Enviar Notificação</button>
+
+  <ul>
+    <li *ngFor="let notif of notificacoes">
+      {{ notif.mensagemId }} - {{ notif.status }}
+    </li>
+  </ul>
+</div>
